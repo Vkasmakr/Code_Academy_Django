@@ -1,0 +1,1 @@
+# Sukuriamas per terminala django-admin startproject mysite(pavadinimas)

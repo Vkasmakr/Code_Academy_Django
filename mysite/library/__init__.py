@@ -1,0 +1,1 @@
+# Sukuriamas per terminala python manage.py startapp library(pavadinimas)
