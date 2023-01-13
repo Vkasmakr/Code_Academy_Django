@@ -11,6 +11,11 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
 
+    # Pakeicia suanglinima frameworke i musu pasirinktus isvedimus
+    class Meta:
+        verbose_name = "Zanras"
+        verbose_name_plural = "Zanrai"
+
 
 class Book(models.Model):
     title = models.CharField('Pavadinimas', max_length=200)
@@ -20,12 +25,25 @@ class Book(models.Model):
     # Rysys daug su daug
     genre = models.ManyToManyField(Genre, help_text='Isrinkite zanra knygai')
 
-    def _str__(self):
-        return self.title
+    # Skirta ispakuoti genre elementus, kad galetume atvaizduoti
+    def display_genre(self):
+        return '; '.join([genre.name for genre in self.genre.all()])
+    # .join nera butinas atvaizdavimui, taciau tai yra saugiau, kadangi isvedamas string, o ne listas
+
+    # Pervadiname isvesti framerworke. Vietoje Display Genre, bus rodoma 'Zanras'
+    display_genre.short_description = 'Zanras'
+
+    def __str__(self):
+        return f'{self.title}'
 
     # Gauname linka
     def absolute_url(self):
         return reverse('book-detail', args=[str(self.id)])
+
+    # Pakeicia suanglinima frameworke i musu pasirinktus isvedimus
+    class Meta:
+        verbose_name = "Knyga"
+        verbose_name_plural = "Knygos"
 
 
 class BookInstance(models.Model):
@@ -60,12 +78,15 @@ class Author(models.Model):
 
     class Meta:
         ordering = ['last_name', 'first_name']
+        verbose_name = "Autorius"
+        verbose_name_plural = "Autoriai"
 
     def get_absolute_url(self):
         return reverse('author-detail', args=[str(self.id)])
 
     def __str__(self):
         return f'{self.last_name}, {self.first_name}'
+
 
 
 # pabaigus komanda terminale: python manage.py makemigrations
