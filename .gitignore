@@ -7,4 +7,5 @@ mysite/library/__pycache__/
 mysite/mysite/__pycache__/
 notes.txt
 db_scheme.png
+.env
 
