@@ -19,7 +19,7 @@ class Genre(models.Model):
 
 class Book(models.Model):
     title = models.CharField('Pavadinimas', max_length=200)
-    author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
+    author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True, related_name='books')
     summary = models.TextField('Aprasymas', max_length=1000, help_text='Trumpas knygos aprasymas')
     isbn = models.CharField('ISBN', max_length=13)
     # Rysys daug su daug
@@ -75,6 +75,12 @@ class BookInstance(models.Model):
 class Author(models.Model):
     first_name = models.CharField('Vardas', max_length=100)
     last_name = models.CharField('Pavarde', max_length=100)
+
+    # Skirta ispakuoti Author elementus, kad galetume atvaizduoti
+    def display_books(self):
+        return ', '.join([book.title for book in self.books.all()[:3]])
+
+    display_books.short_description = "Knygos"
 
     class Meta:
         ordering = ['last_name', 'first_name']
