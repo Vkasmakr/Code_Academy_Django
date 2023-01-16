@@ -15,8 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('library/', include("library.urls")),
     path('admin/', admin.site.urls),
-]
+    # sukuriame nukreipima, kad butu automatiskai nukreipiama i library einant i homepage
+    path('', RedirectView.as_view(url='library/', permanent=True))
+# pridedame styles is library/static/css/styles.css
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
