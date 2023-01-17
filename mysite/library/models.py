@@ -19,6 +19,7 @@ class Genre(models.Model):
 
 class Book(models.Model):
     title = models.CharField('Pavadinimas', max_length=200)
+    # susirisa autoriai su savo knygomis
     author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True, related_name='books')
     summary = models.TextField('Aprasymas', max_length=1000, help_text='Trumpas knygos aprasymas')
     isbn = models.CharField('ISBN', max_length=13)
@@ -75,6 +76,7 @@ class BookInstance(models.Model):
 class Author(models.Model):
     first_name = models.CharField('Vardas', max_length=100)
     last_name = models.CharField('Pavarde', max_length=100)
+    description = models.TextField('Aprasymas', max_length=2000, default='Biografija')
 
     # Skirta ispakuoti Author elementus, kad galetume atvaizduoti
     def display_books(self):
@@ -87,6 +89,8 @@ class Author(models.Model):
         verbose_name = "Autorius"
         verbose_name_plural = "Autoriai"
 
+    # sulinkinimas i konkrecia objekto eilute. Reversu suformuoja rysi su pavadinimu 'author-detail' ir argumentu
+    # args=[str(self.id)]
     def get_absolute_url(self):
         return reverse('author-detail', args=[str(self.id)])
 

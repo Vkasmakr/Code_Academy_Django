@@ -1,8 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
 <div>
-
   <h4>{{author.first_name}} {{author.last_name}}</h4>
+  <!-- hr - ideda brugsneeeli -->
+  <hr/>
+  <!-- ikeliame i puslapy klases Author description -->
+  <p>{{author.description}}</p>
+  <hr/>
+  <h5>Mes turime sias {{author.first_name}} {{author.last_name}} knygas: </h5>
+  <ul>
+    {%  for book_obj in author.books.all %}
+    <li> {{book_obj.title}} </li>
+    {% endfor %}
+  </ul>
 
 </div>
 {% endblock %}

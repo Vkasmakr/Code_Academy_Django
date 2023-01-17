@@ -3,6 +3,7 @@
 <h1>Autoriai</h1>
 <p>Musu knygu autoriu sarasas: </p>
 {% for author_obj in authors %}
-<li>{{author_obj.first_name}} {{author_obj.last_name}}</li>
+<!-- author-detail imamamas is Author klases, funkcijos get_absolute_url. Funkcija sukuria back-linka -->
+<li><a href="{% url 'author-detail' author_obj.id %}">{{author_obj}}</a></li>
 {% endfor %}
 {% endblock %}
