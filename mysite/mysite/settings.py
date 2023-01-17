@@ -25,6 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# Jeigu True - tada ismetus klaida bus nurodomas klaidos kodas ir kodo eilute kur feilino. Paleidus gyvai - isjungti
 DEBUG = True
 
 ALLOWED_HOSTS = []
