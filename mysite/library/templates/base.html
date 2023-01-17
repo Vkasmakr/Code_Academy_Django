@@ -17,7 +17,7 @@
             {% block sidebar %}
             <ul class="sidebar-nav">
                 <li><a href="{% url 'index' %}">Pradžia</a></li>
-                <li><a href="">Visos knygos</a></li>
+                <li><a href="{% url 'books' %}">Visos knygos</a></li>
                  <!--Sujungiame marsruta "authors" is library/urls / name="authors"-->
                 <li><a href="{% url 'authors' %}">Visi autoriai</a></li>
             </ul>

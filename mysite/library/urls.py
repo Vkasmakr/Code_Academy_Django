@@ -10,5 +10,8 @@ urlpatterns = [
     # name: author-detail - paimamas is models, klases Author, funkcijos  "get_absolute_url"
     # views.author - funkcija bus aprasyta views faile
     # cia ivedus authors/(skaicius) gausime nauja langa, kuris nuves i autoriu, kurio klases id - (skaicius)
-    path('authors/<int:author_id>', views.author, name='author-detail')
+    path('authors/<int:author_id>', views.author, name='author-detail'),
+
+    # views.BookListView - sukurta papildoma klase views faile
+    path('books/', views.BookListView.as_view(), name='books')
 ]
