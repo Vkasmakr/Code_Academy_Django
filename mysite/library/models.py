@@ -20,6 +20,7 @@ class Genre(models.Model):
 class Book(models.Model):
     title = models.CharField('Pavadinimas', max_length=200)
     # susirisa autoriai su savo knygomis
+    # related name - sukuria kintamojo rysi, kuri bus galima naudoti kitoje, suristoje klaseje
     author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True, related_name='books')
     summary = models.TextField('Aprasymas', max_length=1000, help_text='Trumpas knygos aprasymas')
     isbn = models.CharField('ISBN', max_length=13)
@@ -79,6 +80,7 @@ class Author(models.Model):
     description = models.TextField('Aprasymas', max_length=2000, default='Biografija')
 
     # Skirta ispakuoti Author elementus, kad galetume atvaizduoti
+    # Jungiasi su klaseje Book, kintamajame 'author' sukurtame "related_name='books'"
     def display_books(self):
         return ', '.join([book.title for book in self.books.all()[:3]])
 

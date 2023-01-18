@@ -1,5 +1,6 @@
 from django.urls import path, include
 from . import views
+from unicodedata import name
 
 # Sukuriame marsrutus
 urlpatterns = [
@@ -13,5 +14,10 @@ urlpatterns = [
     path('authors/<int:author_id>', views.author, name='author-detail'),
 
     # views.BookListView - sukurta papildoma klase views faile
-    path('books/', views.BookListView.as_view(), name='books')
+    path('books/', views.BookListView.as_view(), name='books'),
+
+    # views.BookDetailView
+    # <int:pk> - sujungimas per primary key
+    # book-detail - reverse is Book klases models.py faile
+    path('books/<int:pk>', views.BookDetailView.as_view(), name='book-detail')
 ]

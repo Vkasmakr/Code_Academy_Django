@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- book atsiranda is BookDetailView-->
+<h1>{{book.title}}</h1>
+<p><b>Autorius: </b><a href="{% url 'author-detail' book.author.id %}"> {{book.author}}</a></p>
+<p><b>Aprasymas:</b> {{book.summary}}</p>
+<p><b>ISBN: </b>{{book.isbn}}</p>
+<p><b>Zanras: </b>{{book.genre.all|join:", "}}</p> <!-- |join:"," skirta sujungti elementus, kurie sustatyti ManyToMany -->
+
+<h4><b>Turimu kopiju statusas: </b></h4>
+{% for book_inst_obj in book.bookinstance_set.all %}
+<hr>
+<!--get_status_display atitikmuo: .get(), status .get(status), display - parodo rakto reiksme. Siuo budu issitraukiame
+reiksmes naudojant zodynu raktus
+-->
+<p>{{book_inst_obj.get_status_display}}</p>
+
+<p>Planuojama grazinimo data i biblioteka: {{book_inst_obj.due_back}}</p>
+<p>Kopijos ID: {{book_inst_obj.id}}</p>
+{%endfor%}
+
+{% endblock %}

@@ -37,3 +37,8 @@ class BookListView(generic.ListView):  # paveldejimas is generic.ListView klases
     model = Book  # book_list perduodamas i sablona, kuri Django suformuoja automatiskai
     template_name = 'book_list.html'
     # context_object_name = 'my_book_list' - pakeicia modelio listo pavadinima "book_list" i "my_book_list"
+
+
+class BookDetailView(generic.DetailView):
+    model = Book  # automatiskai sukuriamas kintamasis Book -> book
+    template_name = 'book_detail_styled.html'  # nurodome is kur ims apipavidalinima internete
