@@ -35,8 +35,10 @@ def author(request, author_id):
 
 class BookListView(generic.ListView):  # paveldejimas is generic.ListView klases
     model = Book  # book_list perduodamas i sablona, kuri Django suformuoja automatiskai
+    # paginate_by - puslapiavimas (t.y. idedam, keletos puslapiu langa)
+    paginate_by = 2
     template_name = 'book_list.html'
-    # context_object_name = 'my_book_list' - pakeicia modelio listo pavadinima "book_list" i "my_book_list"
+    # context_object_name = 'my_book_list' - pakeicia modelio listo pavadinima is "book_list" i "my_book_list"
 
 
 class BookDetailView(generic.DetailView):

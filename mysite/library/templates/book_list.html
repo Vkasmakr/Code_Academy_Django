@@ -11,4 +11,23 @@
 {% else %}
 <p>Bibliotekoje siu knygu nera</p>
 {% endif %}
+
+<!-- puslapiavimo aprasymas-->
+<div class="pagination"><span class="step-links">
+        <!--Kas rodoma, jeigu puslapis nera pirmas-->
+        <!--page_obj - paginator elementas ateinantis is paginaty_by, aprasytoje view.py, BookListView klaseje-->
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; pirmas</a><a href="?page={{ page_obj.previous_page_number }}">atgal</a>
+        {% endif %}
+
+         <!-- span - grupavimo elementas-->
+        <span class="current">
+            {{ page_obj.number }} iš {{ page_obj.paginator.num_pages }}</span>
+
+        <!-- Kas rodoma kai pusplapis nera paskutinis-->
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">pirmyn</a><a href="?page={{ page_obj.paginator.num_pages }}">paskutinis &raquo;</a>
+        {% endif %}
+    </span></div>
+
 {% endblock %}
