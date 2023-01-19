@@ -19,5 +19,8 @@ urlpatterns = [
     # views.BookDetailView
     # <int:pk> - sujungimas per primary key
     # book-detail - reverse is Book klases models.py faile
-    path('books/<int:pk>', views.BookDetailView.as_view(), name='book-detail')
+    path('books/<int:pk>', views.BookDetailView.as_view(), name='book-detail'),
+
+    # sukuriamas paieskos lauko marsutas. Funkcionalumas aprasomas bus views.py 'search' funkcijoje
+    path('search/', views.search, name='search')
 ]

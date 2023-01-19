@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- paduodama pagal query rakta is views.py search funkcijos-->
+<h1>Paieskos pagal {{query}} rezultatai: </h1>
+<!-- paduodama pagal books rakta is views.py search funkcijos
+Nurodome kas vyks kai bus kazkas surasta-->
+{% if books %}
+<ul>
+  {% for book_obj in books %}
+    <li>
+      {{book_obj.title}}
+    </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>Nieko nerasta</p>
+{% endif %}
+
+{% endblock %}

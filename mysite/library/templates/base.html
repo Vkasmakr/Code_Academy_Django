@@ -18,8 +18,17 @@
             <ul class="sidebar-nav">
                 <li><a href="{% url 'index' %}">Pradžia</a></li>
                 <li><a href="{% url 'books' %}">Visos knygos</a></li>
+
                  <!--Sujungiame marsruta "authors" is library/urls / name="authors"-->
                 <li><a href="{% url 'authors' %}">Visi autoriai</a></li>
+                
+                <!--Paieskos lauko kurimas. Laukas atsiras po Autoriai, Knygos linku-->
+                <li>
+                    <form action="{% url 'search' %}" method="get" class="form-inline">
+                        <input name="query" class="form-control" type="text" placeholder="Paieska">
+                    </form>
+                </li>
+
             </ul>
             {% endblock %}
         </div>
