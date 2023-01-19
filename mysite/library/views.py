@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views import generic  # suteikia jau is anksto paruostas Django klases
 from django.http import HttpResponse
 from .models import Book, Author, BookInstance, Genre
+from django.core.paginator import Paginator
 
 
 def index(request):  # request - uzklausa atejusi is kliento
@@ -21,9 +22,12 @@ def index(request):  # request - uzklausa atejusi is kliento
 
 # Sukuriame nauja langa, imame html apipavidalinima is authors.html
 def authors(request):
-    authors = Author.objects.all()
+    # authors = Author.objects.all()  Sitas jau nebereikalingas jeigu naudojam Paginator klase, kadangi ji pati pasiima
+    paginator = Paginator(Author.objects.all(), 2)
+    page_number = request.GET.get('page')
+    paged_authors = paginator.get_page(page_number)
     context = {
-        'authors': authors
+        'authors': paged_authors  # anksciau buvo 'authors' bet dabar naudojame Paginator, todel ir jo reiksme idedame
     }
     return render(request, 'authors.html', context=context)
 
