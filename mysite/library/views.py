@@ -61,6 +61,7 @@ def search(request):
     query = request.GET.get('query')
     # search_results - nurodome kur paieskos resultatai bus priimti ir kur bus ieskoma
     search_results = Book.objects.filter(
-                        Q(title__icontains=query)  # title - kuriama Books lauke ieskos, icontains panasu i .ilike(% %)
+                        Q(title__icontains=query) | # title - kuriama Books lauke ieskos, icontains panasu i .ilike(% %)
+                        Q(summary__icontains=query)
     )
     return render(request, 'search.html', {"books": search_results, "query": query})
