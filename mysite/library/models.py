@@ -28,7 +28,7 @@ class Book(models.Model):
     genre = models.ManyToManyField(Genre, help_text='Isrinkite zanra knygai')
 
     # Sukuriame papildoma lauka paveiksliuku patalpinimui
-    cover = models.ImageField('Virselis', upload_to='covers', null=True)
+    cover = models.ImageField('Virselis', upload_to='covers', null=True, blank=True)
     # NOTE: jeigu ikeliant paveiksliuka admino lange meta errora, admin.py faile istrinti atitinkamus readonlyfields
 
     # Skirta ispakuoti genre elementus, kad galetume atvaizduoti

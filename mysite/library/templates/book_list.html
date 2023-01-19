@@ -11,17 +11,21 @@
 <!--Sukuriame apipavidalinima paveiksliukams-->
 <div class="row">
     {%  for book_obj in book_list %}
+    <!--Aprasomas rodomo vaizdo stilius su paveiksliukais-->
     <div class="col -md4 d-flex align-items-stretch">
         <div class="card mb-4 shadow-sm", style="width: 14rem;">
+            <!--Jeigu paveiksliukas yra-->
             {% if book_obj.cover %}
                 <img src="{{book_obj.cover.url}}" class="card-img-top">
+            <!--Kas rodoma, jeigu nera ikelto paveiksliuko-->
             {% else %}
-                <img src="" class="card-img-top">
+                <img src="{% static 'img/no-image.png'%}" class="card-img-top">
             {% endif %}
         </div>
         <div class="card-body">
             <h6 class="card-subtitle mb-2 text-muted">{{book_obj.author}}</h6>
-            <p class="card-text">{{book_obj.title}}</p>
+            <!--sukuriame linka knygoms-->
+            <p class="card-text"><a class="card-link" href="{{book_obj.id}}">{{book_obj.title}}</a></p>
         </div>
 
     </div>
@@ -31,7 +35,7 @@
 <p>Bibliotekoje knygu nera</p>
 {% endif %}
 
-<!-- puslapiavimo aprasymas-->
+<!-- puslapio PUSLAPIAVIMO aprasymas-->
 <div class="pagination"><span class="step-links">
         <!--Kas rodoma, jeigu puslapis nera pirmas-->
         <!--page_obj - paginator elementas ateinantis is paginaty_by, aprasytoje view.py, BookListView klaseje-->

@@ -7,7 +7,7 @@ class BookInstanceInline(admin.TabularInline):
     model = BookInstance
     extra = 0  # ivedimo eilutes, nurodome, kad nekurtu papildomu
     # readonly_fields = ('id',)  # nurodome, kad ID laukas bus tik matomas, bet nekeiciamas
-    can_delete = False  # isimamas istrynimo laukas
+    # can_delete = False  # isimamas istrynimo laukas
 
 
 # Nurodome papildomai kaip bus rodomi objektai is Book klases
