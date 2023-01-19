@@ -29,6 +29,7 @@ class Book(models.Model):
 
     # Sukuriame papildoma lauka paveiksliuku patalpinimui
     cover = models.ImageField('Virselis', upload_to='covers', null=True)
+    # NOTE: jeigu ikeliant paveiksliuka admino lange meta errora, admin.py faile istrinti atitinkamus readonlyfields
 
     # Skirta ispakuoti genre elementus, kad galetume atvaizduoti
     def display_genre(self):
