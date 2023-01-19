@@ -27,6 +27,9 @@ class Book(models.Model):
     # Rysys daug su daug
     genre = models.ManyToManyField(Genre, help_text='Isrinkite zanra knygai')
 
+    # Sukuriame papildoma lauka paveiksliuku patalpinimui
+    cover = models.ImageField('Virselis', upload_to='covers', null=True)
+
     # Skirta ispakuoti genre elementus, kad galetume atvaizduoti
     def display_genre(self):
         return '; '.join([genre.name for genre in self.genre.all()])
