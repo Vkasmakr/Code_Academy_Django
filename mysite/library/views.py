@@ -7,17 +7,23 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 
 
-def index(request):  # request - uzklausa atejusi is kliento
+def index(request):  # request - uzklausa atejusi is kliento. request taip pat saugo uzklausu informacija
     # count uzklausos
     num_books = Book.objects.all().count()  # is models.py, Book klases
     num_authors = Author.objects.all().count()
     num_instances = BookInstance.objects.all().count()
     # Filtruojame is kintamojo status 'g' reiksme
     num_instances_available = BookInstance.objects.filter(status__exact='g').count()
+
+    # Skaiciuojam vartotojo apsilankymus (informacija saugoma Django duomenu bazeje db.sqlite3):
+    num_visits = request.session.get('num_visits', 1)  # kai apsilankys pirma karta - bus 1
+    request.session['num_visits'] = num_visits + 1  # kai apsilankys dar karta + 1
+
     context = {'num_books': num_books,
                'num_instances': num_instances,
                'num_instances_available': num_instances_available,
-               'num_authors': num_authors}
+               'num_authors': num_authors,
+               'num_visits': num_visits}
     return render(request, 'index.html', context=context)
 
 
