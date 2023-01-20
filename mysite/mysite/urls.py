@@ -23,7 +23,9 @@ urlpatterns = [
     path('library/', include("library.urls")),
     path('admin/', admin.site.urls),
     # sukuriame nukreipima, kad butu automatiskai nukreipiama i library einant i homepage
-    path('', RedirectView.as_view(url='library/', permanent=True))
+    path('', RedirectView.as_view(url='library/', permanent=True)),
+    # pridedame tinymce
+    path('tinymce/', include('tinymce.urls'))
     # pridedame styles is library/static/css/styles.css / Nurodome kelia link settings directorijos
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
   + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # pridedame media file'us ir nurodome kelia link ju

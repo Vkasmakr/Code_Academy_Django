@@ -3,6 +3,7 @@ from django.urls import reverse
 import uuid
 from django.contrib.auth.models import User
 from datetime import date
+from tinymce.models import HTMLField  # ikelia redaktoriu ir priemones texto formatavimui. Very cool
 
 # Create your models here.
 
@@ -95,7 +96,9 @@ class BookInstance(models.Model):
 class Author(models.Model):
     first_name = models.CharField('Vardas', max_length=100)
     last_name = models.CharField('Pavarde', max_length=100)
-    description = models.TextField('Aprasymas', max_length=2000, default='Biografija')
+    # description = models.TextField('Aprasymas', max_length=2000, default='Biografija')
+
+    description = HTMLField()
 
     # Skirta ispakuoti Author elementus, kad galetume atvaizduoti
     # Jungiasi su klaseje Book, kintamajame 'author' sukurtame "related_name='books'"

@@ -5,7 +5,7 @@
   <!-- hr - ideda brugsneeeli -->
   <hr/>
   <!-- ikeliame i puslapy klases Author description -->
-  <p>{{author.description}}</p>
+  <p>{{author.description | safe }}</p> <!-- safe leidzia matyti texto formatavima ikelta is db (tinymce etc.)-->
   <hr/>
   <h5>Mes turime sias {{author.first_name}} {{author.last_name}} knygas: </h5>
   <ul>
