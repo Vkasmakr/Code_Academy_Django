@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 import uuid
+from django.contrib.auth.models import User
+from datetime import date
 
 # Create your models here.
 
@@ -69,6 +71,18 @@ class BookInstance(models.Model):
         default='a',
         help_text='Status'
     )
+
+    # Sukuriame vartotojui sasaja. Vienas vartotojas gales skolintis daug knygu, todel kuriame ForeignKey
+    # User importuotas is django bibliotekos django.contrib.auth.models
+    reader = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    # papildomas parametras, kuris tikrins ar knyga jau turejo buti grazinta
+
+    @property
+    def is_overdue(self):
+        if self.due_back and date.today() > self.due_back:
+            return True
+        else:
+            return False
 
     # nustatomas rykiavimas pagal (due back)
     class Meta:
