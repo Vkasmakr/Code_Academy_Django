@@ -79,7 +79,7 @@
                     <a class="nav-link" href="{% url 'authors' %}">Autoriai</a>
                 </li>
 
-                <!--Atvaizduojamas useris, kai prisijungia-->
+                <!--Atvaizduojamas useris, kai prisijungia/prisijungineja-->
                 {% if user.is_authenticated%}  <!-- .is_authenticated jau sukurta django bibliotekoje-->
                 <li class="nav-item"><a class="nav-link" href="#">
                     <svg class="bi bi-person" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor"

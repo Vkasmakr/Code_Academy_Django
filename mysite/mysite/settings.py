@@ -137,3 +137,11 @@ MEDIA_URL = '/media/'
 
 # Naujas prisilogines useris bus nukeltas i homepage
 LOGIN_REDIRECT_URL = '/'
+
+# EMAIL serverio parametrai
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'mail.pythonkursas2.smshostingas.lt'
+EMAIL_POST = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'django@pythonkursas2.smshostingas.lt'
+EMAIL_HOST_PASSWORD = '2023PTU6'
