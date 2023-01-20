@@ -134,3 +134,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = os.path.join(BASE_DIR, "library/media")
 
 MEDIA_URL = '/media/'
+
+# Naujas prisilogines useris bus nukeltas i homepage
+LOGIN_REDIRECT_URL = '/'

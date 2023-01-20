@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- jeigu neteisingas user/password ivestas-->
+{% if form.errors %}
+<p>Prisijungimo klaida, bandykite dar kartą!</p>
+{% endif %}
+
+<!--prisijungimo forma-->
+<form action="{% url 'login' %}" method="post">
+    {% csrf_token %} <!-- apsaugos parametras, butinas norint vykdyti POST metodus (iskaitant prisijungima)-->
+    <table>
+        <tr>
+            <td>Vartotojas:</td>
+            <td>{{ form.username }}</td>
+        </tr>
+        <tr>
+            <td>Slaptažodis:</td>
+            <td>{{ form.password }}</td>
+        </tr>
+    </table>
+    <input type="submit" value="Prisijungti"/>
+    <input type="hidden" name="next" value="{{ next }}"/>
+</form>
+
+<!-- password reset-->
+<p><a href="{% url 'password_reset' %}">Pamiršote slaptažodį?</a></p>
+
+{% endblock %}

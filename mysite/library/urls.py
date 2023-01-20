@@ -22,5 +22,9 @@ urlpatterns = [
     path('books/<int:pk>', views.BookDetailView.as_view(), name='book-detail'),
 
     # sukuriamas paieskos lauko marsutas. Funkcionalumas aprasomas bus views.py 'search' funkcijoje
-    path('search/', views.search, name='search')
+    path('search/', views.search, name='search'),
+
+    # Kuriame useriu prisijungima
+    # djangocontrib.auth.urls - vienas is django jau paruostu marsrutu, leidzia prijungti urls is 'auth'
+    path("accounts/", include("django.contrib.auth.urls"))
 ]
