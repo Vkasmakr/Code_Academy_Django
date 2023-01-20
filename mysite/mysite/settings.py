@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'library',
+    'tinymce',  # reikalingas pip install django-tinymce
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -25,12 +25,12 @@ class AuthorAdmin(admin.ModelAdmin):
 
 # Sukuriame vaizdavimo elementus BookInstance klasei
 class BookInstanceAdmin(admin.ModelAdmin):
-    list_display = ('book', 'status', 'due_back')  # kokius laukus norime matyti
+    list_display = ('book', 'status', 'due_back', 'reader')  # kokius laukus norime matyti
     list_filter = ('status', 'due_back')  # sukuriamas filtras
     # ikeliamas paiesko laukas
     search_fields = ('id', 'book__title')  # book - tevine klase, __- nurodo, kad nukreipiame, title - nukreipiam i titl
     # Ikeliami laukeliai redagavimui tiesiai is pagrindinio lango
-    list_editable = ('due_back', 'status')
+    list_editable = ('due_back', 'status', 'reader')
     fieldsets = (
         ('General', {'fields': ('id', 'book')}),  # BookInstance klaseje bus sukurtas laukas su id, book ivestimis
         ('Availability', {'fields': ('status', 'due_back')})  # laukas su status, due_back ivestimis

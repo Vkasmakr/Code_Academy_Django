@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Mano paimtos knygos</h1>
+{% if bookinstance_list %}
+<ul>
+    {% for bookinstance_obj in bookinstance_list %}
+    <li>{{bookinstance_obj}}</li>
+    {{%endfor%}
+</ul>
+{%else%}
+<p>Siuo metu nesate paeme jokiu knygu</p>
+{%endif%}
+
+{% endblock %}

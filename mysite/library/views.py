@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from .models import Book, Author, BookInstance, Genre
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def index(request):  # request - uzklausa atejusi is kliento. request taip pat saugo uzklausu informacija
@@ -71,3 +72,16 @@ def search(request):
                         Q(summary__icontains=query)
     )
     return render(request, 'search.html', {"books": search_results, "query": query})
+
+
+class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView): # Paveldime is dvieju klasiu!
+    model = BookInstance  # gausime context={'bookinstance_list': BookInstance}
+    template_name = 'user_books.html'
+
+    # perrasome metoda get_queryset is klases generic.ListView. Child klases metodas veiks kreipiantis per Child klase
+    # filter(reader=self.request.user) - isrenka useri
+    # filter(status_exact='p') - isrenka BookInstance statusus su 'p' raktu
+    # order_by('due_back') - surusiuoja pagal data
+    def get_queryset(self):
+        return BookInstance.objects.filter(reader=self.request.user).filter(status__exact='p').order_by('due_back')
+
