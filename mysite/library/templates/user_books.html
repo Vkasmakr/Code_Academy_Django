@@ -5,7 +5,7 @@
 {% if bookinstance_list %}
 <ul>
     {% for bookinstance_obj in bookinstance_list %}
-    <li>{{bookinstance_obj}}</li>
+    <li class="{% if bookinstance_obj.is_overdue %}text-danger{%endif%}">{{bookinstance_obj}}</li>
     {{%endfor%}
 </ul>
 {%else%}
