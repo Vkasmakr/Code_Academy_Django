@@ -74,7 +74,7 @@ def search(request):
     return render(request, 'search.html', {"books": search_results, "query": query})
 
 
-class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView): # Paveldime is dvieju klasiu!
+class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):  # Paveldime is dvieju klasiu!
     model = BookInstance  # gausime context={'bookinstance_list': BookInstance}
     template_name = 'user_books.html'
 

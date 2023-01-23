@@ -93,7 +93,10 @@
                     </svg>
                     {{ user.get_username }}</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'my-borrowed' %}">Mano knygos</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'logout'%}?next=/library">Atsijungti</a></li>
+                <!--<li class="nav-item"><a class="nav-link" href="{% url 'logout'%}?next=/library">Atsijungti</a></li>-->
+                <!--{% url 'logout'%} - django automatiskai nukreips arba i savo default logout langa arba musu sukurta
+                pavadinimu 'logged_out' ir patalpinta i templates->registration-->
+                <li class="nav-item"><a class="nav-link" href="{% url 'logout'%}">Atsijungti</a></li>
                 {% else %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'login'%}?next={{request.path}}">Prisijungti</a>
                 </li>
