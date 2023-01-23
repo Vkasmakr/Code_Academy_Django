@@ -140,8 +140,8 @@ MEDIA_URL = '/media/'
 LOGIN_REDIRECT_URL = '/'
 
 # EMAIL serverio parametrai
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  - rodys konsoleje
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # sius email
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # - rodys konsoleje
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # sius email
 EMAIL_HOST = 'mail.pythonkursas2.smshostingas.lt'
 EMAIL_POST = 587
 EMAIL_USE_TLS = True

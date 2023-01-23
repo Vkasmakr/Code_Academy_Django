@@ -98,6 +98,12 @@
                 pavadinimu 'logged_out' ir patalpinta i templates->registration-->
                 <li class="nav-item"><a class="nav-link" href="{% url 'logout'%}">Atsijungti</a></li>
                 {% else %}
+                <!--{% url 'login'%}?next={{request.path}}. Kas vyksta?
+                1. Naudojamas pirma linkas 'login', kuris nukreipia i login langa
+                2. Django su ?next={{request.path}} isimena pries tai buvusio lango adresa ir sioje vietoje ji saugo
+                3. next reiskia, kad po sekmingo veiksmo, siuo atveju password autentikavimo, bus nukreipiama i nurodyta
+                langa.
+                4. Siuo atveju tai reiskia, kad po login grisime ten pat, kur buvome, tik busime prisijunge-->
                 <li class="nav-item"><a class="nav-link" href="{% url 'login'%}?next={{request.path}}">Prisijungti</a>
                 </li>
                 <li class="nav-item"><a class="nav-link" href="#">Registruotis</a></li>
