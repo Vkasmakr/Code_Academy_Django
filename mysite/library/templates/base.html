@@ -129,6 +129,16 @@
         </div>
     </div>
 </nav>
+<!--Zinuciu laukas, kuris perduos error/info messages vysktancias tinkplapyje (pvz. Vartotojas sukurtas sekmingai)-->
+{% if messages%}
+    {% for message in messages %}
+    <!--Jeigu erroras - tada raudona spalva spalvas, jeigu info - tada zalia-->
+    <div class="alert alert-{%if message.tags == 'error'%}danger{%elif message.tags == 'info'%}success{%endif%}"
+         role="alert">
+        {{message}}
+    </div>
+    {% endfor %}
+    {% endif %}
 <div class="container">{% block content %}{% endblock %}</div>
 
 <script
