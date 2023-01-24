@@ -1,11 +1,14 @@
 # Views - koduojame ka mes rodysime vartotojui (frontend)
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic  # suteikia jau is anksto paruostas Django klases
 from django.http import HttpResponse
 from .models import Book, Author, BookInstance, Genre
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import User
+from django.views.decorators.csrf import csrf_protect
+from django.contrib import messages
 
 
 def index(request):  # request - uzklausa atejusi is kliento. request taip pat saugo uzklausu informacija
@@ -84,4 +87,34 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):  # Paveld
     # order_by('due_back') - surusiuoja pagal data
     def get_queryset(self):
         return BookInstance.objects.filter(reader=self.request.user).filter(status__exact='p').order_by('due_back')
+
+
+@csrf_protect
+def register(request):
+    if request.method == 'POST':  # sitas ivyks, kai bus ivykdyta "post" komanda su mygtukais is register.html -->
+        # <form method="post">
+
+        # pasiimame reiksmes is register.html lauku
+        # ...Vartotojo vardas</label><input name="username"...
+        username = request.POST['username']
+        email = request.POST['email']
+        password1 = request.POST['password']
+        password2 = request.POST['password2']
+        if password1 == password2:
+            if User.objects.filter(username=username).exists():  # tikriname ar yra jau toks username
+                messages.error(request, f'Vartotojo vardas {username} yra uzimtas')
+                return redirect('register')  # grazinama i register puslapi
+            else:
+                if User.objects.filter(email=email).exists():  # tikriname ar yra jau toks email
+                    messages.error(request, f'Emailas {email} yra uzimtas kito vartotojo')
+                    return redirect('register')
+                else:  # jeigu viskas gerai, kuriame nauja vartotoja
+                    User.objects.create_user(username=username, email=email, password=password1)
+                    messages.info(request, f'Vartotojas {username} sekmingai uzregistruotas')
+                    return redirect('login')
+        else:
+            messages.error(request, 'Slaptazodzia nesutampa')
+            return redirect('register')
+
+    return render(request, 'register.html')
 

@@ -28,5 +28,6 @@ urlpatterns = [
     # djangocontrib.auth.urls - vienas is django jau paruostu marsrutu, leidzia prijungti urls is 'auth'
     path("accounts/", include("django.contrib.auth.urls")),
 
-    path('mybooks/', views.LoanedBooksByUserListView.as_view(), name='my-borrowed')
+    path('mybooks/', views.LoanedBooksByUserListView.as_view(), name='my-borrowed'),
+    path('register/', views.register, name='register')
 ]
