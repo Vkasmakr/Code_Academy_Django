@@ -1,5 +1,5 @@
 # Views - koduojame ka mes rodysime vartotojui (frontend)
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.views import generic  # suteikia jau is anksto paruostas Django klases
 from django.http import HttpResponse
 from .models import Book, Author, BookInstance, Genre
@@ -9,6 +9,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import User
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
+from django.views.generic.edit import FormMixin
+from .forms import BookReviewForm
 
 
 def index(request):  # request - uzklausa atejusi is kliento. request taip pat saugo uzklausu informacija
@@ -61,9 +63,32 @@ class BookListView(generic.ListView):  # paveldejimas is generic.ListView klases
     # context_object_name = 'my_book_list' - pakeicia modelio listo pavadinima is "book_list" i "my_book_list"
 
 
-class BookDetailView(generic.DetailView):
+class BookDetailView(FormMixin, generic.DetailView):
     model = Book  # automatiskai sukuriamas kintamasis Book -> book
     template_name = 'book_detail_styled.html'  # nurodome is kur ims apipavidalinima internete
+    form_class = BookReviewForm
+
+    # nustatome settings
+    class Meta:
+        ordering = ['title']
+
+    # Nukreipimas po sekmingo komentaro parasymo atgal i knygos langa
+    def get_success_url(self):
+        return reverse('book-detail', kwargs={'pk': self.object.id})
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        form.instance.book = self.object
+        form.instance.reviewer = self.request.user
+        form.save()
+        return super(BookDetailView, self).form_valid(form)
 
 
 def search(request):

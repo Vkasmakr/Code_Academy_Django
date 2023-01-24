@@ -7,8 +7,21 @@
 <p><b>ISBN: </b>{{book.isbn}}</p>
 <p><b>Zanras: </b>{{book.genre.all|join:", "}}</p> <!-- |join:"," skirta sujungti elementus, kurie sustatyti ManyToMany -->
 <hr>
+<!--Bus ivedami atsiliepimai-->
+{% if user.is_authenticated %}
+<div class="fieldWrapper">
+    <h4>Palikite atsiliepima:</h4>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.content }}  <!--sugeneruota is django.views.generic.edit import FormMixin-->
+        <br>
+        <input type="submit", value="Palikti atsiliepima">
+    </form>
+</div>
+{% endif %}
 
 <!--Bus rodomi atsiliepimai is models.py BookReview klases-->
+<hr>
 <h4>Atsiliepimai</h4>
 {% if book.bookreview_set.all %}  <!--tikriname ar is viso yra atsiliepimu tam tikroje knygoje-->
 {% for book_review_obj in book.bookreview_set.all %}
