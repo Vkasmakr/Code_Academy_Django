@@ -121,6 +121,12 @@ class Author(models.Model):
         return f'{self.last_name}, {self.first_name}'
 
 
+class BookReview(models.Model):
+    book = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True, blank=True)
+    reviewer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    # auto_now_add - automatiskai objekto sukurimo metu ides data ir laika
+    date_created = models.DateTimeField(auto_now_add=True)
+    content = models.TextField('Atsiliepimas', max_length=2000)
 
 # pabaigus komanda terminale: python manage.py makemigrations
 # python manage.py migrate

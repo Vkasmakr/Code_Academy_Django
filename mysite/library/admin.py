@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Author, Genre, Book, BookInstance
+from .models import Author, Genre, Book, BookInstance, BookReview
 
 
 # Sukuriamas naujas BookInstance klases laukas, kuri bus galima inkorporuoti i kitos klases isvedama vaizda
@@ -37,10 +37,15 @@ class BookInstanceAdmin(admin.ModelAdmin):
     )
 
 
+class BookReviewAdmin(admin.ModelAdmin):
+    list_display = ('book', 'date_created', 'reviewer', 'content')
+
+
 # Register your models here.
 admin.site.register(Author, AuthorAdmin)  # surisame Author ir AuthorAdmin
 admin.site.register(Genre)
 admin.site.register(Book, BookAdmin)  # surisame Book ir BookAdmin
 admin.site.register(BookInstance, BookInstanceAdmin)  # surisame BookInstance ir BookInstanceAdmin
+admin.site.register(BookReview, BookReviewAdmin)
 # po registracijas: python manage.py createsuperuser
 
