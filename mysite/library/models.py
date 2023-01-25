@@ -128,5 +128,18 @@ class BookReview(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     content = models.TextField('Atsiliepimas', max_length=2000)
 
+
+# Klase skirta vartotojo profilio kurimui ir taisymui
+# profilius useriams reiktu rankiniu budu priskirti, taciau galima automatizuoti: python manage.py shell ->
+# -> from django.contrib.auth.models import User -> from library.models import Profilis ->
+# -> for user_obj in User.objects.all(): -> (indent)profile_obj = Profilis(user=user_obj) -> profile_obj.save()
+class Profilis(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)  # susieja vienas su vienu django Modeli USER
+    nuotrauka = models.ImageField(default='default.png', upload_to='profile_pics')
+
+    def __str__(self):
+        return f'{self.user.username} profilis'
+
+
 # pabaigus komanda terminale: python manage.py makemigrations
 # python manage.py migrate

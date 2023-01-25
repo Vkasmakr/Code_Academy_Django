@@ -6,8 +6,9 @@
 <p><b>Aprasymas:</b> {{book.summary}}</p>
 <p><b>ISBN: </b>{{book.isbn}}</p>
 <p><b>Zanras: </b>{{book.genre.all|join:", "}}</p> <!-- |join:"," skirta sujungti elementus, kurie sustatyti ManyToMany -->
-<hr>
+
 <!--Bus ivedami atsiliepimai-->
+<hr>
 {% if user.is_authenticated %}
 <div class="fieldWrapper">
     <h4>Palikite atsiliepima:</h4>

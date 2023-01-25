@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
 from django.views.generic.edit import FormMixin
 from .forms import BookReviewForm
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):  # request - uzklausa atejusi is kliento. request taip pat saugo uzklausu informacija
@@ -143,3 +144,7 @@ def register(request):
 
     return render(request, 'register.html')
 
+
+@login_required
+def profilis(request):
+    return render(request, 'profilis.html')
