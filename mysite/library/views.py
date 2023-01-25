@@ -145,6 +145,7 @@ def register(request):
     return render(request, 'register.html')
 
 
+# Profilio lango konfiguracija
 @login_required
 def profilis(request):
     if request.method == 'POST':
@@ -153,7 +154,7 @@ def profilis(request):
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
-            messages.success(request, "Profilis sekmingai atnaujintas")
+            messages.info(request, "Profilis sekmingai atnaujintas")
             return redirect('profilis')
     else:  # kai bus request.method == "GET"
         u_form = UserUpdateForm(instance=request.user)
