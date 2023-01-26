@@ -9,7 +9,7 @@
         <li class="{% if bookinstance_obj.is_overdue %}text-danger{%endif%}">
             <a href="{% url 'book-detail' bookinstance_obj.book.pk %}">{{bookinstance_obj.book.title}}</a>
             Grazinti iki: {{bookinstance_obj.due_back}}
-            <a href="{% url 'my-book' bookinstance_obj.id %}"> Keisti - {{bookinstance_obj.id}}</a>
+            <p><a href="{% url 'my-book' bookinstance_obj.id %}"> Keisti - {{bookinstance_obj.id}}</a></p>
         </li>
     {%endfor%}
 </ul>

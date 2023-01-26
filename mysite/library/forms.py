@@ -1,4 +1,4 @@
-from .models import BookReview, Profilis
+from .models import BookReview, Profilis, BookInstance
 from django import forms
 from django.contrib.auth.models import User
 
@@ -23,3 +23,14 @@ class ProfilisUpdateForm(forms.ModelForm):
     class Meta:
         model = Profilis
         fields = ['nuotrauka']  # gali buti ir tuple
+
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
+class UserBookCreateForm(forms.ModelForm):
+    class Meta:
+        model = BookInstance
+        fields = ('book', 'reader', 'due_back', 'status')
+        widgets = {'reader': forms.HiddenInput, 'due_back': DateInput}  # DateInput ismes drop-down kalendoriu

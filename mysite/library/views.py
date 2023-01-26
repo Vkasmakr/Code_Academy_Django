@@ -10,7 +10,7 @@ from django.contrib.auth.forms import User
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
 from django.views.generic.edit import FormMixin, CreateView, UpdateView, DeleteView
-from .forms import BookReviewForm, UserUpdateForm, ProfilisUpdateForm
+from .forms import BookReviewForm, UserUpdateForm, ProfilisUpdateForm, UserBookCreateForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -172,9 +172,10 @@ def profilis(request):
 class BookByUserCreateView(LoginRequiredMixin, CreateView):
     model = BookInstance
     # fields = '__all__'  # rodo visus modelio laukus, bet jeigu nori isskirti ka rodysime, turime daryti kaip zemiau
-    fields = ('book', 'due_back', 'status')
+    # fields = ('book', 'due_back', 'status')  - Prijungsime laukus is forms.py todel sitie nereikalingi
     success_url = '/library/mybooks/'  # kur nukreipsime po sekmingo posto
     template_name = 'user_book_form.html'
+    form_class = UserBookCreateForm
 
     def form_valid(self, form):
         form.instance.reader = self.request.user
