@@ -171,7 +171,7 @@ def profilis(request):
 # Leis sukurti knygos vieneta
 class BookByUserCreateView(LoginRequiredMixin, CreateView):
     model = BookInstance
-    #fields = '__all__'  # rodo visus modelio laukus, bet jeigu nori isskirti ka rodysime, turime daryti kaip zemiau
+    # fields = '__all__'  # rodo visus modelio laukus, bet jeigu nori isskirti ka rodysime, turime daryti kaip zemiau
     fields = ('book', 'due_back', 'status')
     success_url = '/library/mybooks/'  # kur nukreipsime po sekmingo posto
     template_name = 'user_book_form.html'
@@ -179,3 +179,8 @@ class BookByUserCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.reader = self.request.user
         return super().form_valid(form)
+
+
+class BookByUserDetailView(LoginRequiredMixin, BookDetailView):
+    model = BookInstance
+    template_name = 'user_book.html'
