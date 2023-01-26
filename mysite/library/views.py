@@ -9,7 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import User
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
-from django.views.generic.edit import FormMixin
+from django.views.generic.edit import FormMixin, CreateView
 from .forms import BookReviewForm, UserUpdateForm, ProfilisUpdateForm
 from django.contrib.auth.decorators import login_required
 
@@ -166,3 +166,15 @@ def profilis(request):
     }
 
     return render(request, 'profilis.html', context=context)
+
+
+# Leis sukurti knygos vieneta
+class BookByUserCreateView(LoginRequiredMixin, CreateView):
+    model = BookInstance
+    fields = '__all__'
+    success_url = '/library/mybooks/'  # kur nukreipsime po sekmingo posto
+    template_name = 'user_book_form.html'
+
+    def form_valid(self, form):
+        form.instance.reader = self.request.user
+        return super().form_valid(form)

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="content-section">
+  <form method="POST">
+    {% csrf_token %}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">Naujas knygos egzempliorius</legend>
+      {{ form }}
+      <button class="btn btn-outline-info" type="submit">Issaugoti</button>
+    </fieldset>
+  </form>
+</div>
+
+{% endblock %}
