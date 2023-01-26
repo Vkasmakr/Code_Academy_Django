@@ -5,11 +5,11 @@ from django.http import HttpResponse
 from .models import Book, Author, BookInstance, Genre
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.forms import User
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
-from django.views.generic.edit import FormMixin, CreateView
+from django.views.generic.edit import FormMixin, CreateView, UpdateView, DeleteView
 from .forms import BookReviewForm, UserUpdateForm, ProfilisUpdateForm
 from django.contrib.auth.decorators import login_required
 
@@ -184,3 +184,33 @@ class BookByUserCreateView(LoginRequiredMixin, CreateView):
 class BookByUserDetailView(LoginRequiredMixin, BookDetailView):
     model = BookInstance
     template_name = 'user_book.html'
+
+
+# LogisRequiredMixin - kas tik isilogines galetu daryt dalykus
+# UserPassesTestMixin - kad isilogines useris negaletu keisti dalyku kitu useriu vardu
+# Update View - kad useris galetu keisti dalykus
+class BookByUserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = BookInstance
+    fields = ('book', 'due_back', 'status')
+    success_url = '/library/mybooks/'  # kur nukreipsime po sekmingo keitimo
+    template_name = 'user_book_form.html'
+
+    def form_valid(self, form):
+        form.instance.reader = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        bookinstance = self.get_object()
+        return self.request.user == bookinstance.reader  # testas ar prisijunges useris atitinka to instance, kuri
+        # norime keisti "savininka". Cia, kad kitas useris nekeistu kito userio pakeitimu.
+
+
+class BookByUserDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = BookInstance
+    success_url = '/library/mybooks/'
+    template_name = 'user_book_delete.html'
+
+    def test_func(self):
+        bookinstance = self.get_object()
+        return self.request.user == bookinstance.reader
+
