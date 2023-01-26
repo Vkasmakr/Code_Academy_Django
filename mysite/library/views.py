@@ -171,7 +171,8 @@ def profilis(request):
 # Leis sukurti knygos vieneta
 class BookByUserCreateView(LoginRequiredMixin, CreateView):
     model = BookInstance
-    fields = '__all__'
+    #fields = '__all__'  # rodo visus modelio laukus, bet jeigu nori isskirti ka rodysime, turime daryti kaip zemiau
+    fields = ('book', 'due_back', 'status')
     success_url = '/library/mybooks/'  # kur nukreipsime po sekmingo posto
     template_name = 'user_book_form.html'
 
